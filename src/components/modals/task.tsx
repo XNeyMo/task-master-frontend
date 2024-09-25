@@ -1,17 +1,15 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useTasks } from "../../context/task";
 import { useForm } from "react-hook-form";
 
 interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
+  task?: any;
 }
 
-export default function TaskModal({ isOpen, onClose }: TaskModalProps) {
-  const { createTask, getTask, updateTask } = useTasks();
-  const navigate = useNavigate();
-  const params = useParams();
+export default function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
+  const { createTask, updateTask } = useTasks();
   const {
     register,
     setValue,
@@ -19,37 +17,30 @@ export default function TaskModal({ isOpen, onClose }: TaskModalProps) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data: any) => {
-    try {
-      if (params.id) {
-        updateTask(params.id, {
-          ...data,
-        });
-      } else {
-        createTask({
-          ...data,
-        });
-      }
+  const id = task?._id;
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } catch (error) {
-      console.error(error);
+  const onSubmit = (data: any) => {
+    if (task) {
+      updateTask(id, data);
+    } else {
+      createTask(data);
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   useEffect(() => {
-    const loadTask = async () => {
-      if (params.id) {
-        const task = await getTask(params.id);
-        setValue("title", task.title);
-        setValue("description", task.description);
-        setValue("date", task.date ? task.date.split("T")[0] : "");
-      }
-    };
-    loadTask();
-  }, [params.id, getTask, setValue]);
+    if (task) {
+      setValue("title", task.title);
+      setValue("description", task.description);
+      setValue("date", task.date ? task.date.split("T")[0] : "");
+    } else {
+      setValue("title", "");
+      setValue("description", "");
+      setValue("date", "");
+    }
+  }, [task, setValue]);
 
   if (!isOpen) return null;
 
@@ -57,7 +48,9 @@ export default function TaskModal({ isOpen, onClose }: TaskModalProps) {
     <div className="bg-eminence-950/60 fixed w-full h-full flex items-center justify-center">
       <div className="bg-eminence-50 flex flex-col p-10 rounded-xl w-2/5">
         <div className="flex justify-between items-center">
-          <h1 className="uppercase text-xl tracking-widest font-bold text-eminence-950">Add new task</h1>
+          <h1 className="uppercase text-xl tracking-widest font-bold text-eminence-950">
+            {task ? 'Add new task' : 'Edit task'}
+          </h1>
           <button onClick={onClose}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
           </button>

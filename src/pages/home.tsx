@@ -31,7 +31,11 @@ export default function Home() {
 
   return (
     <>
-      <TaskModal isOpen={isOpenTaskModal} onClose={closeTask} />
+      <TaskModal
+        isOpen={isOpenTaskModal}
+        onClose={closeTask}
+        task={selectedTask}
+      />
 
       <Header createTask={createTask} />
 
