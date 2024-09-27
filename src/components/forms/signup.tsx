@@ -15,15 +15,31 @@ export default function SignUpForm() {
 	const onSubmit = handleSubmit((values) => signUp(values));
 
 	return (
-		<form onSubmit={onSubmit}>
-			<input {...register('username', { required: true })} type="text" placeholder="Username" />
-			{errors.username && <p>Username is required</p>}
-			<input {...register('email', { required: true })} type="email" placeholder="Email" />
-			{errors.email && <p>Email is required</p>}
-			<input {...register('password', { required: true })} type="password" placeholder="Password" />
-			{errors.password && <p>Password is required</p>}
+		<form className="flex flex-col gap-5" onSubmit={onSubmit}>
+			<input
+				{...register('username', { required: true })}
+				type="text"
+				placeholder="Username"
+				className="border-2 focus:outline-none text-eminence-600 focus:border-eminence-800 placeholder:text-eminence-400 focus:text-eminence-800 border-eminence-600 bg-eminence-50 p-2 rounded-md"
+			/>
 
-			<button type="submit">Sign Up</button>
+			<input
+				{...register('email', { required: true })}
+				type="email"
+				placeholder="Email"
+				className="border-2 focus:outline-none text-eminence-600 focus:border-eminence-800 placeholder:text-eminence-400 focus:text-eminence-800 border-eminence-600 bg-eminence-50 p-2 rounded-md"
+			/>
+
+			<input
+				{...register('password', { required: true })}
+				type="password"
+				placeholder="Password"
+				className="border-2 focus:outline-none text-eminence-600 focus:border-eminence-800 placeholder:text-eminence-400 focus:text-eminence-800 border-eminence-600 bg-eminence-50 p-2 rounded-md"
+			/>
+
+			<button className="hover:bg-eminence-800 ease-in-out duration-500 bg-eminence-600 p-2 rounded-md font-bold text-eminence-50" type="submit">
+				Sign Up
+			</button>
 		</form>
 	)
 }
