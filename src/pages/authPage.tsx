@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import SignUpForm from "../components/forms/signup";
-import SignInForm from "../components/forms/signin";
+import SignUpForm from "../components/auth/signUpForm";
+import SignInForm from "../components/auth/signInForm";
 
-export default function Auth() {
+export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(true);
 
   return (

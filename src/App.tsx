@@ -1,31 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from "react-router-dom";
 
-import './App.css'
+import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
-import Home from './pages/home'
-import Auth from './pages/auth'
-import Protected from './components/protected'
-import { AuthProvider } from './context/auth'
-import TaskForm from './components/forms/task'
-import { TaskProvider } from './context/task'
+import "./App.css"
+import "@mantine/core/styles.css";
+import '@mantine/notifications/styles.css';
 
-function App() {
+import AuthProvider from "./context/authContext";
+import TaskProvider from "./context/taskContext";
+import Router from "./Router";
+
+export default function App() {
   return (
-    <AuthProvider>
-      <TaskProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-
-            <Route element={<Protected />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/task" element={<TaskForm />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </TaskProvider>
-    </AuthProvider>
-  )
+    <MantineProvider>
+      <Notifications />
+      <AuthProvider>
+        <TaskProvider>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </TaskProvider>
+      </AuthProvider>
+    </MantineProvider>
+  );
 }
-
-export default App
