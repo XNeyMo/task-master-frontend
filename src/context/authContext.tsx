@@ -47,7 +47,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     async function checkUser() {
-      const token = Cookies.get();
+      const token = Cookies.get('token');
       if (token) {
         try {
           const res = await verifyToken();
