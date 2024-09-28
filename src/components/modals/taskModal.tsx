@@ -1,30 +1,18 @@
 import { useEffect } from "react";
 import { useTasks } from "../../hooks/useTask";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { IconCheck, IconEdit } from "@tabler/icons-react";
 
+import { TaskModalProps } from "../../types";
 import { Task } from "../../types";
 import { notifications } from "@mantine/notifications";
 
-interface TaskModalProps {
-	isOpen: boolean;
-	onClose: () => void;
-	task?: Task;
-}
-
 export default function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
 	const { createTask, updateTask } = useTasks();
-	const {
-		register,
-		setValue,
-		handleSubmit,
-		reset
-	} = useForm();
+	const { register, setValue, handleSubmit, reset } = useForm<Task>();
 
-	const id = task?._id;
-
-	const onSubmit = (data: any) => {
+	const onSubmit: SubmitHandler<Task> = (data) => {
 		if (!task) {
 			createTask(data);
 
@@ -37,7 +25,7 @@ export default function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
 
 			onClose();
 		} else {
-			updateTask(id, data);
+			updateTask(task._id, data);
 
 			notifications.show({
 				title: 'Task Updated',
@@ -55,7 +43,7 @@ export default function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
 			if (task) {
 				setValue("title", task.title);
 				setValue("description", task.description);
-				setValue("date", task.date ? task.date.split("T")[0] : "");
+				setValue("date", task.date ? task.date : undefined);
 			} else {
 				reset();
 			}

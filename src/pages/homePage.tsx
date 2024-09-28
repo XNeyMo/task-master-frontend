@@ -11,26 +11,26 @@ export default function HomePage() {
   const { tasks, getTasks } = useTasks();
 
   const [isOpenTaskModal, setOpenTaskModal] = useState<boolean>(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
 
-  const openTask = (task) => {
+  const openTask = (task: Task) => {
     setSelectedTask(task);
     setOpenTaskModal(true);
   }
 
   const createTask = () => {
-    setSelectedTask(null);
+    setSelectedTask(undefined);
     setOpenTaskModal(true);
   }
 
   const closeTask = () => {
-    setSelectedTask(null);
+    setSelectedTask(undefined);
     setOpenTaskModal(false);
   }
 
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [getTasks]);
 
   return (
     <>

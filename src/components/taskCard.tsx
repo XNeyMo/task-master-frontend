@@ -1,9 +1,10 @@
 import { notifications } from "@mantine/notifications";
 import { useTasks } from "../hooks/useTask";
+import { TaskCardProps } from "../types";
 
 import { IconTrash } from "@tabler/icons-react";
 
-export default function TaskCard({ task, openModal }) {
+export default function TaskCard({ task, openModal }: TaskCardProps) {
   const { deleteTask } = useTasks();
 
   return (

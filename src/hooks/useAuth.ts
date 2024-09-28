@@ -3,7 +3,7 @@ import { User } from "../types";
 
 export const AuthContext = createContext<{
   signUp: (user: User) => void;
-  signIn: (user: Omit<User, 'username'>) => void;
+  signIn: (user: User) => void;
   user: User | null;
   isAuthenticated: boolean;
 } | null>(null);

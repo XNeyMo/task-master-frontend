@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FieldErrors, useForm } from "react-hook-form"
+import { FieldErrors, useForm, SubmitHandler } from "react-hook-form"
 import { notifications } from "@mantine/notifications";
 
 import { IconX, IconCheck } from "@tabler/icons-react";
@@ -10,7 +10,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { User } from "../../types";
 
 export default function SignInForm() {
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit } = useForm<User>()
 	const { signIn, isAuthenticated } = useAuth();
 	const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export default function SignInForm() {
 		if (isAuthenticated) navigate('/')
 	}, [isAuthenticated, navigate]);
 
-	const onSubmit = async (values: Omit<User, '_id' | 'username'>) => {
+	const onSubmit: SubmitHandler<User> = async (values) => {
 		notifications.show({
 			loading: true,
 			title: 'Signing In',
@@ -73,7 +73,7 @@ export default function SignInForm() {
 	}
 
 	return (
-		<form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); handleSubmit(onSubmit, onError)() }}>
+		<form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit, onError)}>
 			<input
 				{...register('email', { required: true })}
 				type="email"

@@ -29,7 +29,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const signIn = async (user: Omit<User, 'username'>) => {
+  const signIn = async (user: User) => {
     try {
       const response = await loginUser(user);
       setTimeout(() => {

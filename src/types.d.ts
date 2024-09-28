@@ -16,3 +16,18 @@ export interface Task {
 export interface ErrorResponse {
   message: string;
 }
+
+export interface HeaderProps {
+  createTask: () => void;
+}
+
+export interface TaskCardProps {
+  task: Task;
+  openModal: (task: Task) => void;
+}
+
+export interface TaskModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  task?: Task;
+}

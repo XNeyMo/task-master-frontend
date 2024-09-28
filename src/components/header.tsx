@@ -1,8 +1,5 @@
 import { useAuth } from "../hooks/useAuth";
-
-interface HeaderProps {
-  createTask: () => void;
-}
+import { HeaderProps } from "../types";
 
 export default function Header({ createTask }: HeaderProps) {
   const { user } = useAuth();
