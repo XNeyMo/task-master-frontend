@@ -1,6 +1,8 @@
 import { notifications } from "@mantine/notifications";
 import { useTasks } from "../hooks/useTask";
 
+import { IconTrash } from "@tabler/icons-react";
+
 export default function TaskCard({ task, openModal }) {
   const { deleteTask } = useTasks();
 
@@ -25,6 +27,7 @@ export default function TaskCard({ task, openModal }) {
                   title: 'Task Deleted',
                   message: 'Task has been deleted successfully.',
                   color: 'red',
+                  icon: <IconTrash />,
                 })
             }}
           >

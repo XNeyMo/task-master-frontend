@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useTasks } from "../../hooks/useTask";
 import { useForm } from "react-hook-form";
 
+import { IconCheck, IconEdit } from "@tabler/icons-react";
+
 import { Task } from "../../types";
 import { notifications } from "@mantine/notifications";
 
@@ -30,6 +32,7 @@ export default function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
 				title: 'Task Created',
 				message: 'Task has been created successfully.',
 				color: 'green',
+				icon: <IconCheck />,
 			})
 
 			onClose();
@@ -39,7 +42,8 @@ export default function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
 			notifications.show({
 				title: 'Task Updated',
 				message: 'Task has been updated successfully.',
-				color: 'green',
+				color: 'yellow',
+				icon: <IconEdit />,
 			})
 
 			onClose();
