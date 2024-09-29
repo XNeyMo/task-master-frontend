@@ -9,8 +9,12 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const getTasks = async () => {
-    const res = await getTasksRequest();
-    setTasks(res.data);
+    try {
+      const res = await getTasksRequest();
+      setTasks(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteTask = async (id: string) => {
